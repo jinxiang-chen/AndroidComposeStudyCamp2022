@@ -1,0 +1,50 @@
+import androidx.activity.ComponentActivity
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import com.example.reply.ui.ReplyApp
+import org.junit.Rule
+import org.junit.Test
+import com.example.reply.R
+
+class ReplyAppTest {
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+    
+    @Test
+    fun compactDevice_verifyUsingBottomNavigation() {
+        // Set up compact window
+        composeTestRule.setContent {
+            ReplyApp(
+                windowSize = WindowWidthSizeClass.Compact
+            )
+        }
+        composeTestRule.onNodeWithTag("navigation_bottom").assertExists()
+    }
+    
+    @Test
+    fun mediumDevice_verifyUsingNavigationRail() {
+        // Set up medium window
+        composeTestRule.setContent {
+            ReplyApp(
+                windowSize = WindowWidthSizeClass.Medium
+            )
+        }
+        // Navigation rail is displayed
+        composeTestRule.onNodeWithTag("Navigation Rail").assertExists()
+    }
+    
+    @Test
+    fun expandedDevice_verifyUsingNavigationDrawer() {
+        // Set up expanded window
+        composeTestRule.setContent {
+            ReplyApp(
+                windowSize = WindowWidthSizeClass.Expanded
+            )
+        }
+        // Navigation drawer is displayed
+        composeTestRule.onNodeWithTag("Navigation Drawer").assertExists()
+    }
+}
